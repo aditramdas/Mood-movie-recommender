@@ -11,8 +11,8 @@ def fetch_genre_from_movie_page(movie_url, mood):
     for td in soup.find_all('a', class_='ipc-chip ipc-chip--on-baseAlt'):
         genres.append(td.span.text)
     if any(genre.lower() in mood for genre in genres):
-        print(genres)
-        return genres
+        description = soup.find('span', class_='sc-466bb6c-0 kJJttH').text
+        return genres, description
 
 
 def fetch_movies_from_imdb(mood ): 
@@ -29,9 +29,9 @@ def fetch_movies_from_imdb(mood ):
         title = td.find('h3' , class_='ipc-title__text').text.split(".")[1]
         year = td.find('span' , class_='sc-14dd939d-6 kHVqMR cli-title-metadata-item').text
         movie_url = 'https://www.imdb.com' + td.find('a' , class_='ipc-title-link-wrapper')['href']
-        genres = fetch_genre_from_movie_page(movie_url , mood)
-        if genres:
-            movies.append((title, year))
+        genres_desc = fetch_genre_from_movie_page(movie_url , mood)
+        if genres_desc:
+            movies.append((title, year, genres_desc[1] ))
             count += 1
         if count == 5:
             break

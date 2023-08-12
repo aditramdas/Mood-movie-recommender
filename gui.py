@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Text, WORD
 import scraper
 
 MOOD_MAPPING = {
@@ -15,8 +15,8 @@ def fetch_and_recommend():
     global movies
     movies = scraper.fetch_movies_from_imdb(MOOD_MAPPING[mood])
     for movie in movies:
-        title, year = movie
-        recommendations_list.insert(tk.END, f"{title} ({year})")
+        title, year, desc = movie
+        recommendations_list.insert(tk.END, f"{title} ({year}) - {desc} \n\n\n")
 
 app = tk.Tk()
 app.title("IMDB Movie Recommender")
@@ -33,7 +33,7 @@ mood_combobox.grid(row=0, column=4, pady=0)
 recommend_button = tk.Button(app, text="Recommend Movies", command=fetch_and_recommend)
 recommend_button.grid(row=4, column=0, columnspan=2, pady=5)
 
-recommendations_list = tk.Listbox(frame, height=10, width=50)
+recommendations_list = Text(frame, wrap=WORD)
 recommendations_list.grid(row=5, column=0, columnspan=2, pady=0)
 
 app.mainloop()
