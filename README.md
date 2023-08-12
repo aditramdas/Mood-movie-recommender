@@ -1,4 +1,4 @@
-# Mood-movie-recommender based on mood
+# Movie-recommender based on mood
 This is a tool built with Python libraries such as Beautiful Soup and Requests, helping users to find recommendations for movies based on their mood. 
 
 # How this works
